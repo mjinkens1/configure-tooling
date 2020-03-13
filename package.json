@@ -1,5 +1,5 @@
 {
-  "name": "@mjinkens1/react-config",
+  "name": "@itemize/react-config",
   "version": "1.0.0",
   "description": "Automatic configuration for React projects at Itemize Corp",
   "main": "index.js",

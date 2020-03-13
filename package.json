@@ -1,0 +1,22 @@
+{
+  "name": "@mjinkens1/react-config",
+  "version": "1.0.0",
+  "description": "Automatic configuration for React projects at Itemize Corp",
+  "main": "index.js",
+  "bin": {
+    "configure-project": "./index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Matt Jinkens",
+  "license": "MIT",
+  "devDependencies": {
+    "@mjinkens1/husky-config": "github:mjinkens1/husky-config",
+    "@mjinkens1/prettier-config": "github:mjinkens1/prettier-config",
+    "eslint-plugin-itemize-react": "github:mjinkens1/eslint-plugin-itemize-react"
+  },
+  "dependencies": {
+    "yargs": "^15.3.0"
+  }
+}

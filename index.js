@@ -9,6 +9,7 @@ const createFile = require('./src/createFile');
 const formatFile = require('./src/formatFile');
 const getConfigPaths = require('./src/getConfigPaths');
 const installDeps = require('./src/installDeps');
+const installPeerDeps = require('./src/installPeerDeps');
 
 const commonDeps = [
   'husky',
@@ -51,6 +52,7 @@ const configureTooling = async () => {
 
   try {
     await installDeps(dependencies, rootPath);
+    await installPeerDeps();
     await createConfigFiles(rootPath, configurations);
   } catch (error) {
     console.error(error);

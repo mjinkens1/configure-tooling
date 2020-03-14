@@ -1,8 +1,7 @@
 {
-  "name": "@itemize/react-config",
+  "name": "@itemizecorp/configure-tooling-react",
   "version": "1.0.0",
   "description": "Automatic configuration for React projects at Itemize Corp",
-  "main": "index.js",
   "bin": {
     "configure-project": "./index.js"
   },
@@ -18,5 +17,8 @@
   },
   "dependencies": {
     "yargs": "^15.3.0"
+  },
+  "peerDependencies": {
+    "babel-eslint": "^10.1.0"
   }
 }

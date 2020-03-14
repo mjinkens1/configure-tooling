@@ -1,58 +1,56 @@
 #!/usr/bin/env node
-const { dirname } = require("path");
-const { openSync, writeFileSync } = require("fs");
-const { execSync } = require("child_process");
-const { platform } = require("yargs").argv;
+const { dirname } = require('path');
+const { openSync, writeFileSync } = require('fs');
+const { execSync } = require('child_process');
+const { platform } = require('yargs').argv;
 
-const rootPath = dirname(require.main.filename).split("/node_modules")[0];
+const createFile = require('./src/createFile');
+const formatFile = require('./src/formatFile');
+const getConfigPaths = require('./src/getConfigPaths');
+const installDeps = require('./src/installDeps');
 
-execSync(`cd ${rootPath}`);
-execSync(
-  "npm install -D mjinkens1/prettier-config mjinkens1/eslint-plugin-itemize-react mjinkens1/husky-config"
-);
-
-const eslintConfigPath =
-  platform === "react-native"
-    ? "./configs/eslint-react-native"
-    : "./configs/eslint-web";
-
-const configs = [
-  {
-    name: "eslint",
-    filename: ".eslintrc.js",
-    config: require(eslintConfigPath)
-  },
-  {
-    name: "husky 🐕",
-    filename: ".huskyrc.js",
-    config: require("@itemize/husky-config")
-  },
-  {
-    name: "prettier",
-    filename: ".prettierrc.js",
-    config: require("@itemize/prettier-config")
-  }
+const commonDeps = [
+  'husky',
+  'prettier',
+  'pretty-quick',
+  'mjinkens1/prettier-config',
+  'mjinkens1/husky-config',
 ];
 
-configs.forEach(({ name, filename, config }) => {
-  console.log(`Creating ${name} config file`);
+const reactDeps = ['mjinkens1/eslint-plugin-itemize-react'];
 
-  const filepath = `${rootPath}/${filename}`;
-  const fileContent = `module.exports = ${JSON.stringify(config)}`;
+const dependencies = [
+  ...commonDeps,
+  ...((platform || '').includes('react') ? reactDeps : []),
+];
 
-  try {
-    openSync(filepath, "w");
-    writeFileSync(filepath, fileContent);
-  } catch (error) {
-    console.log("Oops! Something went wrong while creating the config file.");
-  }
+const configPaths = getConfigPaths(platform);
 
-  try {
-    console.log("Formatting config file...");
-    execSync(`prettier --write ${filename}`);
-  } catch (error) {
-    console.log("Oops looks like prettier isn't installed for formatting!");
-  }
+const configurations = [
+  {
+    name: 'eslint ✅',
+    filename: '.eslintrc.js',
+    config: require(configPaths.eslint),
+  },
+  {
+    name: 'husky 🐕',
+    filename: '.huskyrc.js',
+    config: require(configPaths.husky),
+  },
+  {
+    name: 'prettier 📖',
+    filename: '.prettierrc.js',
+    config: require('@itemizecorp/prettier-config'),
+  },
+];
 
-  console.log("Done!");
-});
+const rootPath = dirname(require.main.filename).split('/node_modules')[0];
+
+const createConfigFiles = configs => {
+  configs.forEach(({ name, filename, config }) => {
+    createFile(rootPath, name, filename, config);
+    formatFile(filename);
+  });
+};
+
+installDeps(dependencies, rootPath, () => createConfigFiles(configurations));

@@ -11,6 +11,8 @@
   "author": "Matt Jinkens",
   "license": "MIT",
   "dependencies": {
+    "cli-spinners": "^2.2.0",
+    "ora": "^4.0.3",
     "yargs": "^15.3.0"
   }
 }

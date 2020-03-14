@@ -1,8 +1,8 @@
-const { exec, execSync } = require('child_process');
+const { execSync } = require('child_process');
 
-const installDeps = (deps, rootPath, callback) => {
+const installDeps = (deps, rootPath) => {
   execSync(`cd ${rootPath}`);
-  exec(`npm install -D ${deps.join(' ')}`, callback);
+  execSync(`npm install -D ${deps.join(' ')}`, { stdio: 'pipe' });
 };
 
 module.exports = installDeps;

@@ -1,9 +1,8 @@
 const { openSync, writeFileSync } = require('fs');
 
-const createFile = (rootPath, name, filename, config) => {
-  console.log(`Creating ${name} config file`);
-
+const createFile = (rootPath, name, filename, configPath) => {
   const filepath = `${rootPath}/${filename}`;
+  const config = require(configPath);
   const fileContent = `module.exports = ${JSON.stringify(config)}`;
 
   try {

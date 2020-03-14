@@ -12,16 +12,13 @@ const runCommand = (cmd, message, rootPath) => {
   return new Promise((resolve, reject) => {
     spinner.start();
     execSync(`cd ${rootPath}`);
-    const command = exec(cmd, error => {
+    const command = exec(cmd, (error, stdout) => {
       if (error) {
         reject(error);
       }
       spinner.succeed();
+      console.log(stdout.toString());
       resolve();
-    });
-
-    command.stdout.on('data', data => {
-      console.log(data);
     });
   });
 };

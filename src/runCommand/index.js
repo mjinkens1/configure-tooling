@@ -2,24 +2,28 @@ const { exec, execSync } = require('child_process');
 const { earth } = require('cli-spinners');
 const ora = require('ora');
 
-const spinner = ora({
-  isEnabled: true,
-  prefixText: 'Installing dependencies',
-  spinner: earth,
-});
+const runCommand = (cmd, message, rootPath) => {
+  const spinner = ora({
+    isEnabled: true,
+    prefixText: message,
+    spinner: earth,
+  });
 
-const installDeps = (deps, rootPath) => {
   return new Promise((resolve, reject) => {
     spinner.start();
     execSync(`cd ${rootPath}`);
-    exec(`npm install -D ${deps.join(' ')}`, error => {
+    const command = exec(cmd, error => {
       if (error) {
         reject(error);
       }
       spinner.succeed();
       resolve();
     });
+
+    command.stdout.on('data', data => {
+      console.log(data);
+    });
   });
 };
 
-module.exports = installDeps;
+module.exports = runCommand;

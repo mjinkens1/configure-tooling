@@ -8,8 +8,7 @@ const createConfigFiles = require('./src/createConfigFiles');
 const createFile = require('./src/createFile');
 const formatFile = require('./src/formatFile');
 const getConfigPaths = require('./src/getConfigPaths');
-const installDeps = require('./src/installDeps');
-const installPeerDeps = require('./src/installPeerDeps');
+const runCommand = require('./src/runCommand');
 
 const commonDeps = [
   'husky',
@@ -51,8 +50,16 @@ const configureTooling = async () => {
   const rootPath = dirname(require.main.filename).split('/node_modules')[0];
 
   try {
-    await installDeps(dependencies, rootPath);
-    await installPeerDeps();
+    await runCommand(
+      `npm install -D --loglevel=silent ${dependencies.join(' ')}`,
+      'Installing dependencies',
+      rootPath
+    );
+    await runCommand(
+      'npx install-peerdeps -o -D @itemizecorp/eslint-plugin-react',
+      'Installing peer dependencies',
+      rootPath
+    );
     await createConfigFiles(rootPath, configurations);
   } catch (error) {
     console.error(error);

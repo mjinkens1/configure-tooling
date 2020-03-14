@@ -1,7 +1,5 @@
 #!/usr/bin/env node
 const { dirname } = require('path');
-const { openSync, writeFileSync } = require('fs');
-const { execSync } = require('child_process');
 const { platform } = require('yargs').argv;
 
 const createFile = require('./src/createFile');

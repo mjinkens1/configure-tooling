@@ -15,7 +15,7 @@ const commonDeps = [
   'mjinkens1/husky-config',
 ];
 
-const reactDeps = ['mjinkens1/eslint-plugin-itemize-react'];
+const reactDeps = ['mjinkens1/eslint-plugin-react'];
 
 const dependencies = [
   ...commonDeps,

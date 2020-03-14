@@ -8,7 +8,7 @@ const getConfigPaths = platform => {
 
     case 'react':
       return {
-        eslint: '@itemizecorp/eslint-config/react',
+        eslint: '@itemizecorp/eslint-config/web',
         husky: '@itemizecorp/husky-config/react',
       };
 

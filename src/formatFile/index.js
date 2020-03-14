@@ -1,11 +1,14 @@
-const { execSync } = require('child_process');
+const { exec } = require('child_process');
 
 const formatFile = filename => {
-  try {
-    execSync(`prettier --write ${filename}`);
-  } catch (error) {
-    // no-op
-  }
+  return new Promise((resolve, reject) => {
+    exec(`prettier --write ${filename}`, error => {
+      if (error) {
+        reject(error);
+      }
+      resolve();
+    });
+  });
 };
 
 module.exports = formatFile;

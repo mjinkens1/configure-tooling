@@ -1,16 +1,18 @@
-const { openSync, writeFileSync } = require('fs');
+const { open, writeFile } = require('fs');
 
 const createFile = (rootPath, name, filename, configPath) => {
-  const filepath = `${rootPath}/${filename}`;
-  const config = require(configPath);
-  const fileContent = `module.exports = ${JSON.stringify(config)}`;
+  return new Promise((resolve, reject) => {
+    const filepath = `${rootPath}/${filename}`;
+    const config = require(configPath);
+    const fileContent = `module.exports = ${JSON.stringify(config)}`;
 
-  try {
-    openSync(filepath, 'w');
-    writeFileSync(filepath, fileContent);
-  } catch (error) {
-    console.log('Oops! Something went wrong while creating the config file.');
-  }
+    writeFile(filepath, fileContent, error => {
+      if (error) {
+        reject(error);
+      }
+      resolve();
+    });
+  });
 };
 
 module.exports = createFile;

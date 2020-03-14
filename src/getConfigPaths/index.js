@@ -1,27 +1,22 @@
 const getConfigPaths = platform => {
   switch (platform) {
-    case "node":
+    case 'react':
       return {
-        eslint: "@itemizecorp/eslint-config",
-        husky: "@itemizecorp/husky-config"
+        eslint: '@itemizecorp/eslint-config/configs/react-web/tooling-config',
+        husky: '@itemizecorp/husky-config/react',
       };
 
-    case "react":
+    case 'react-native':
       return {
-        eslint: "@itemizecorp/eslint-config/react",
-        husky: "@itemizecorp/husky-config/react"
-      };
-
-    case "react-native":
-      return {
-        eslint: "@itemizecorp/eslint-config/react-native",
-        husky: "@itemizecorp/husky-config/react-native"
+        eslint:
+          '@itemizecorp/eslint-config/configs/react-native/tooling-configs',
+        husky: '@itemizecorp/husky-config/react-native',
       };
 
     default:
       return {
-        eslint: "@itemizecorp/eslint-config",
-        husky: "@itemizecorp/husky-config"
+        eslint: '@itemizecorp/eslint-config/configs/react-web/tooling-config',
+        husky: '@itemizecorp/husky-config/react',
       };
   }
 };

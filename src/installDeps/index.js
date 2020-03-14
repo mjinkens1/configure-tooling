@@ -1,4 +1,4 @@
-const { exec } = require('child_process');
+const { exec, execSync } = require('child_process');
 const { earth } = require('cli-spinners');
 const ora = require('ora');
 
@@ -11,7 +11,8 @@ const spinner = ora({
 const installDeps = (deps, rootPath) => {
   return new Promise((resolve, reject) => {
     spinner.start();
-    exec(`cd ${rootPath} && npm install -D ${deps.join(' ')}`, error => {
+    execSync(`cd ${rootPath}`);
+    exec(`npm install -D ${deps.join(' ')}`, error => {
       if (error) {
         reject(error);
       }

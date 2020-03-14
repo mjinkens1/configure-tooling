@@ -7,16 +7,19 @@ const formatFile = require('../formatFile');
 const createConfigFiles = (rootPath, configs) => {
   return new Promise(async (resolve, reject) => {
     for (const { name, filename, configPath } of configs) {
-      try {
-        const spinner = ora({
-          isEnabled: true,
-          prefixText: `Creating ${name} config file`,
-          spinner: earth,
-        });
+      const spinner = ora({
+        isEnabled: true,
+        prefixText: `Creating ${name} config file`,
+        spinner: earth,
+      });
 
+      try {
         spinner.start();
 
-        await createFile(rootPath, name, filename, configPath);
+        const filepath = `${rootPath}/${filename}`;
+        const config = require(configPath);
+
+        await createFile(filepath, config);
         await formatFile(filename);
         spinner.succeed();
       } catch (error) {

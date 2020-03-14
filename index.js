@@ -53,7 +53,7 @@ const configureTooling = async () => {
     await installDeps(dependencies, rootPath);
     await createConfigFiles(rootPath, configurations);
   } catch (error) {
-    console.error('Configuration failed');
+    console.error(error);
   }
 };
 

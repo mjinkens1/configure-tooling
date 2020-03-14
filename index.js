@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+const { execSync } = require('child_process');
 const { dirname } = require('path');
 const { platform } = require('yargs').argv;
 const { earth } = require('cli-spinners');
@@ -47,9 +48,10 @@ const configurations = [
 ];
 
 const configureTooling = async () => {
-  const rootPath = dirname(require.main.filename).split('/node_modules')[0];
-
   try {
+    const rootPath = dirname(require.main.filename).split('/node_modules')[0];
+    execSync(`cd ${rootPath}`);
+
     await runCommand(
       `npm install -D --loglevel=silent ${dependencies.join(' ')}`,
       'Installing dependencies',

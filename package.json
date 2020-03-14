@@ -1,7 +1,7 @@
 {
-  "name": "@itemizecorp/configure-tooling-react",
+  "name": "@itemizecorp/configure-tooling",
   "version": "1.0.0",
-  "description": "Automated tooling configuration for React projects at Itemize Corp",
+  "description": "Automated code format tooling configuration for projects at Itemize Corp",
   "bin": {
     "configure-project": "./index.js"
   },

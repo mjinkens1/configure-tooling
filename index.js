@@ -2,8 +2,6 @@
 const { execSync } = require('child_process');
 const { dirname } = require('path');
 const { platform } = require('yargs').argv;
-const { earth } = require('cli-spinners');
-const ora = require('ora');
 
 const createConfigFiles = require('./src/createConfigFiles');
 const createFile = require('./src/createFile');

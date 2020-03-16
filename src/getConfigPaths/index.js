@@ -9,7 +9,7 @@ const getConfigPaths = platform => {
     case 'react-native':
       return {
         eslint:
-          '@itemizecorp/eslint-config/configs/react-native/tooling-configs',
+          '@itemizecorp/eslint-config/configs/react-native/tooling-config',
         husky: '@itemizecorp/husky-config/react-native',
       };
 
